@@ -51,7 +51,24 @@ The DNS and NTP allowances precede the broader blocks. The final internet rule f
 
 ## UniFi switching and wireless
 
-The UniFi Network controller runs in a Management-VLAN LXC. It manages a USW Flex 2.5G 8 switch and a U7-Pro-Wall access point. OPNsense remains responsible for routing, DHCP, and inter-VLAN firewall policy.
+The UniFi Network controller runs in a Management-VLAN LXC. It manages a Flex 2.5G (`USW-Flex-2.5G-8`) switch and a U7-Pro-Wall access point. OPNsense remains responsible for routing, DHCP, and inter-VLAN firewall policy.
+
+### Network hardware
+
+| Component | Hardware | Connection and power |
+| --- | --- | --- |
+| Flex 2.5G switch | 8 x 2.5 GbE RJ45 ports; 10 GbE RJ45 / SFP+ combination uplink | Router trunk on port 9 at 2.5 GbE; USB-C or PoE+ power-input capability |
+| U7 Pro Wall | Wi-Fi 7; 2.4, 5, and 6 GHz; 6 spatial streams; one 1/2.5 GbE Ethernet port | Wall-mounted; 2.5 GbE uplink from switch port 2 through a separate PoE injector |
+
+The installed switch is the non-PoE-output model. It can receive PoE+ power, but does not supply PoE power to the AP. The AP's injector supplies its power separately from the switch's network connection.
+
+Product references: [Flex 2.5G EU store](https://eu.store.ui.com/eu/en/products/usw-flex-2-5g-8), [Flex 2.5G specifications](https://techspecs.ui.com/unifi/switching/usw-flex-2-5g-8), [U7 Pro Wall EU store](https://eu.store.ui.com/eu/en/products/u7-pro-wall), and [U7 Pro Wall specifications](https://techspecs.ui.com/unifi/wifi/u7-pro-wall).
+
+![Wall-mounted U7 Pro Wall access point with its Ethernet cable and blue status indicator](../assets/photos/u7-pro-wall-installed.png)
+
+The AP provides the Trusted, IoT, and Guest/Work wireless networks. Its Ethernet uplink carries the corresponding VLAN traffic through the switch.
+
+### Wireless networks
 
 ![UniFi switch and access point, with their uplink relationship](../assets/screenshots/unifi-devices.png)
 

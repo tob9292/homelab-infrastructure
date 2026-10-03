@@ -2,7 +2,26 @@
 
 ## Physical and virtual layout
 
-The lab runs on a single compact Proxmox VE system with approximately 32 GiB of RAM, NVMe-backed workload storage, and a separate SATA backup disk. OPNsense is a VM; application services run in LXC containers.
+The lab runs on a TekLager TLSense 10810U with 32 GB of RAM, NVMe-backed workload storage, and a separate SATA backup SSD. OPNsense is a VM; application services run in LXC containers.
+
+### Physical hardware
+
+The [TLSense 10810U](https://teklager.se/en/products/routers/tlsense-10810U) is a compact, passively cooled system with six 2.5 GbE Ethernet ports.
+
+| Component | Installed hardware | Role |
+| --- | --- | --- |
+| Processor | Intel Core i7-10810U, 6 cores / 12 threads | Proxmox VE, the firewall VM, and service containers |
+| Memory | 32 GB, 2 x 16 GB DDR4 SO-DIMM modules rated DDR4-3200 | Host and workload memory |
+| NVMe SSD | Samsung PM9A1 1 TB, M.2 2280, PCIe 4.0 x4 capable | Proxmox system disk, LVM, and LVM-thin workload storage |
+| SATA SSD | Samsung 870 EVO 500 GB, 2.5-inch SATA | Dedicated local workload and host-configuration backups |
+
+![TLSense 10810U Proxmox host with its passive-cooling chassis](../assets/photos/tlsense-proxmox-host.png)
+
+The photo shows the installed host, its passive-cooling fins, front USB ports, serial console connector, and power indicator.
+
+Product documentation: [Intel i7-10810U specifications](https://www.intel.com/content/www/us/en/products/sku/201888/intel-core-i710810u-processor-12m-cache-up-to-4-90-ghz/specifications.html), [Samsung PM9A1 overview](https://download.semiconductor.samsung.com/resources/brochure/Product%20Overviews%20PM9A1%20SSD%20Storage%20for%20the%20Next-Generation%20PC.pdf), and [Samsung 870 EVO data sheet](https://image.semiconductor.samsung.com/resources/data-sheet/Samsung_SSD_870_EVO_Data_Sheet_Rev1.1.pdf).
+
+### Proxmox layout
 
 ![Proxmox VE node summary, storage entries, and VM/LXC inventory](../assets/screenshots/proxmox-overview.png)
 

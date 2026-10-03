@@ -10,7 +10,7 @@
 | OPNsense configuration export | Restore firewall settings independently of a full guest restore | Retained before relevant changes |
 | OPNsense ZFS boot environment | Revert the firewall's system state | Created before selected changes and updates |
 
-Scheduled archives are stored on a dedicated SATA disk. Workloads use NVMe storage, and a USB disk holds the offline/off-site copy.
+Scheduled archives are stored on the dedicated Samsung 870 EVO 500 GB SATA SSD. Proxmox and workload disks use the Samsung PM9A1 1 TB NVMe SSD, and a USB disk holds the offline/off-site copy. See the [installed hardware](architecture.md#physical-hardware) for drive details.
 
 ## Workload selection and retention
 

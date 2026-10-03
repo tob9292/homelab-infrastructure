@@ -19,6 +19,18 @@ Maintained by [tob9292](https://github.com/tob9292).
 | Recovery | Scheduled workload and host-configuration backups, offline/off-site copies, and emergency access procedures |
 | Documentation | A private Obsidian knowledge base, with selected material rewritten for this public portfolio |
 
+## Physical hardware
+
+| Component | Hardware |
+| --- | --- |
+| Proxmox host | TekLager TLSense 10810U; Intel Core i7-10810U; 32 GB DDR4 SO-DIMM RAM |
+| Workload storage | Samsung PM9A1 1 TB NVMe SSD |
+| Local backup storage | Samsung 870 EVO 500 GB SATA SSD |
+| Switch | UniFi Flex 2.5G (`USW-Flex-2.5G-8`), with eight 2.5 GbE ports and a 10 GbE combination uplink |
+| Access point | UniFi U7 Pro Wall, powered by a separate PoE injector |
+
+See the [hardware details and host installation photo](docs/architecture.md#physical-hardware) and [UniFi hardware and AP installation photo](docs/network-and-security.md#network-hardware).
+
 ## Architecture
 
 ```mermaid
@@ -78,3 +90,5 @@ Addresses in `10.77.0.0/16`, domains under `example.com`, and generic account na
 Configuration exports, credentials, MFA recovery material, private keys, original screenshots, and vault history remain private.
 
 Screenshots show the actual services, with live addresses, registered domains, device identifiers, and private browsing information removed. The captures are from October 2026.
+
+Hardware photos show the installed equipment. Public copies have location and other image metadata removed; the original photographs remain private.

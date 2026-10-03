@@ -2,7 +2,7 @@
 """Review current or staged portfolio files without printing matched values.
 
 Checks the file allowlist, sensitive-data patterns, local Markdown links,
-and fingerprints of manually reviewed, metadata-free PNG screenshots.
+and fingerprints of manually reviewed, metadata-free PNG images.
 Image fingerprints do not replace visual review of a new or changed image.
 Run alongside Gitleaks and manual review. Uses Python's standard library.
 """
@@ -34,7 +34,7 @@ APPROVED_TEXT_FILES = frozenset({
     "scripts/check_public_content.py",
     "tests/test_public_content.py",
 })
-# Each fingerprint belongs to the final cropped/redacted PNG, not its source.
+# Each fingerprint belongs to the final public PNG, not its private source.
 # Changing an image requires visual review before approving a new fingerprint.
 APPROVED_IMAGES = {
     "assets/screenshots/proxmox-overview.png": "c7568c3a2110c5bf582dcd148b0814e8764b5b8f9004aa784a9a5fdc17ba09f9",
@@ -44,12 +44,14 @@ APPROVED_IMAGES = {
     "assets/screenshots/unifi-devices.png": "1f8c2c8349d5f02a0af560b525dfba358b21ffd16d1664e5c27ce6781f6aede0",
     "assets/screenshots/unifi-switch-ports.png": "b56ab9f75c17bfffd7748bd72e420d6bb27727560ed2345c2a57d3b8dc21e5e1",
     "assets/screenshots/unifi-router-trunk.png": "afb33ba9f97f2e97d5dee6500ee477eb08e5f81b9ee4427e8c0330733944cbf3",
-    "assets/screenshots/adguard-dashboard.png": "7a5999680719d15902775b5724a4ac2b793f3d4065c34b64698b7ab4d754a4c4",
+    "assets/screenshots/adguard-dashboard.png": "d2e2b8b7fd9a254ae89ac8c23aa8a3dacc89712e49d9b7d02f2dd6f45e54ef4c",
     "assets/screenshots/npmplus-proxy-hosts.png": "d9fee7fe3a06c446f7d15bfcefbd33eb12bc62de055cfafc4a19d11c33e55fbb",
     "assets/screenshots/npmplus-certificates.png": "114adc6f1dd9add6e35c7ea4241faa2b20c9dc8088c452b617d66a3fdf1d927b",
     "assets/screenshots/uptime-kuma.png": "4cc619db27eddeaff1030324c8dbf80a1def2804fc4c335475045f0ba64db1fc",
     "assets/screenshots/proxmox-backup-job.png": "21c0e3076380a528a140aa9f6e24ebd768b4f106546d6c217b96a1aa58d29b3a",
     "assets/screenshots/proxmox-backup-retention.png": "0d47c01b0091a80f5e36b468c9060309bf93b0951f50fcc8435e2ce3cad5dd6b",
+    "assets/photos/tlsense-proxmox-host.png": "7217a45bd91a51e01e2ad729aa6f80fb8c4743dfd5985943f72b111ae97f485c",
+    "assets/photos/u7-pro-wall-installed.png": "4cbb634887c6aa6b2bece88e57acfe415ac9d397238ecac0b3161fc0a8e4ac56",
 }
 APPROVED_FILES = APPROVED_TEXT_FILES | APPROVED_IMAGES.keys()
 ILLUSTRATIVE_NETWORK = ipaddress.ip_network("10.77.0.0/16")

@@ -20,9 +20,9 @@ DNS troubleshooting follows the query path through the client, AdGuard, Unbound,
 
 AdGuard Home is the client-facing DNS service. Its dashboard summarizes query volume, filtered requests, average processing time, and activity by client.
 
-![AdGuard Home dashboard with seven-day DNS and filtering statistics](../assets/screenshots/adguard-dashboard.png)
+![AdGuard Home English dashboard with seven-day DNS and filtering statistics](../assets/screenshots/adguard-dashboard.png)
 
-The dashboard uses the Swedish interface. `DNS-förfrågningar` means DNS queries, `Blockerat av filter` means blocked by filters, and `Genomsnittlig processtid` is the average processing time. Client identities and the queried-domain lists are kept private.
+Client identities are masked, and the queried-domain lists are omitted from the public screenshot.
 
 ## Namespaces
 
