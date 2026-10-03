@@ -1,0 +1,19 @@
+# Deny by default. Review and explicitly approve each new public file.
+*
+!/.gitignore
+!/README.md
+!/docs/
+!/docs/architecture.md
+!/docs/network-and-security.md
+!/docs/dns-and-https.md
+!/docs/backup-and-recovery.md
+!/docs/android-vpn.md
+!/docs/automation-and-documentation.md
+!/docs/publication-policy.md
+!/docs/runbooks/
+!/docs/runbooks/firewall-change.md
+!/docs/runbooks/dns-troubleshooting.md
+!/scripts/
+!/scripts/check_public_content.py
+!/tests/
+!/tests/test_public_content.py
