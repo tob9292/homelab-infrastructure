@@ -34,4 +34,4 @@ The public repository presents selected infrastructure documentation using GitHu
 
 ## Repository tooling
 
-[The public-content checker](../scripts/check_public_content.py) is implemented in this repository. It checks the approved file list, common sensitive-data patterns, illustrative IPv4 addressing, and local Markdown file links. [Unit tests](../tests/test_public_content.py) exercise its behavior.
+[The public-content checker](../scripts/check_public_content.py) is implemented in this repository. It checks the approved file list, common sensitive-data patterns, illustrative IPv4 addressing, local Markdown links, and fingerprints of the reviewed PNG screenshots. [Unit tests](../tests/test_public_content.py) exercise its behavior.

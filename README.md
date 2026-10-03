@@ -38,11 +38,27 @@ flowchart LR
 
 OPNsense and the application containers run on the Proxmox VE host, connected through dedicated WAN and internal network bridges.
 
+## Lab in operation
+
+![Proxmox VE host overview and configured VM/LXC workloads](assets/screenshots/proxmox-overview.png)
+
+Proxmox brings the firewall VM, application containers, storage, and host resources into one management view. The [architecture page](docs/architecture.md) explains each workload's role.
+
+<details>
+<summary>View the infrastructure monitoring dashboard</summary>
+
+![Uptime Kuma monitors grouped into Applications and Core Network](assets/screenshots/uptime-kuma.png)
+
+The [monitoring page](docs/monitoring.md) covers DNS resolution, reverse-proxy connectivity, management endpoints, and application checks.
+
+</details>
+
 ## Explore the project
 
 - [Architecture and workload inventory](docs/architecture.md)
 - [Network segmentation and administrative security](docs/network-and-security.md)
 - [DNS and internal HTTPS](docs/dns-and-https.md)
+- [Service and infrastructure monitoring](docs/monitoring.md)
 - [Backup and recovery design](docs/backup-and-recovery.md)
 - [Android VPN automation](docs/android-vpn.md)
 - [Automation and documentation workflow](docs/automation-and-documentation.md)
@@ -60,3 +76,5 @@ The documentation covers the network layout, service configuration, administrati
 Addresses in `10.77.0.0/16`, domains under `example.com`, and generic account names are illustrative replacements. They preserve the relationships between components while keeping live endpoint details private.
 
 Configuration exports, credentials, MFA recovery material, private keys, original screenshots, and vault history remain private.
+
+Screenshots show the actual services, with live addresses, registered domains, device identifiers, and private browsing information removed. The captures are from October 2026.

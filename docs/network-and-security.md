@@ -1,5 +1,13 @@
 # Network segmentation and administrative security
 
+## OPNsense platform
+
+The OPNsense VM is the gateway for the internal VLANs and the WireGuard client network. It handles routing, firewall policy, DHCP, NTP, and the upstream DNS resolver used by AdGuard Home.
+
+![OPNsense dashboard with interface roles, gateway status, system resources, and services](../assets/screenshots/opnsense-dashboard.png)
+
+The dashboard brings gateway status, interface activity, system resources, and running services into one view. The interface names identify Management, Trusted, IoT, Guest/Work, Servers, and the home WireGuard tunnel.
+
 ## Routing policy
 
 OPNsense routes between five internal VLANs. Internal addressing and policy are IPv4-only. The WAN uses DHCP, with IPv6 disabled. The unnumbered internal parent interface has its legacy default allow rules disabled.
@@ -23,6 +31,53 @@ Key inter-network access rules:
 | WireGuard clients | AdGuard DNS and internal proxy HTTPS; other private destinations are restricted |
 
 Hermes has selected access to the administration workstation for documentation integration and to the Proxmox API. Uptime Kuma has selected access to infrastructure management endpoints for monitoring.
+
+## IoT interface rules
+
+The IoT rules make the required internal exceptions before restricting other destinations:
+
+| Order | Action | Destination and purpose |
+| --- | --- | --- |
+| 1 | Allow TCP/UDP 53 | AdGuard Home for DNS resolution |
+| 2 | Allow UDP 123 | The firewall for time synchronization |
+| 3 | Allow TCP 8096 | Jellyfin on the designated Trusted workstation |
+| 4 | Block TCP/UDP 53 | Other DNS destinations |
+| 5 | Block | Other access to the firewall itself |
+| 6 | Block | Other destinations in the private-network alias |
+| 7 | Allow | Remaining outbound internet traffic |
+
+![OPNsense IoT interface rules in their configured order](../assets/screenshots/opnsense-iot-rules.png)
+
+The specific service rules precede the broader blocks. The Jellyfin exception permits access to that service without opening general access to the Trusted network. The final internet rule follows the private-network restrictions.
+
+## UniFi switching and wireless
+
+The UniFi Network controller runs in a Management-VLAN LXC. It manages a USW Flex 2.5G 8 switch and a U7-Pro-Wall access point. OPNsense remains responsible for routing, DHCP, and inter-VLAN firewall policy.
+
+![UniFi switch and access point, with their uplink relationship](../assets/screenshots/unifi-devices.png)
+
+The access point connects to switch port 2 with a 2.5 GbE uplink. Wireless networks assign clients to the corresponding VLAN:
+
+| Wi-Fi network | VLAN | Bands | Security |
+| --- | ---: | --- | --- |
+| Trusted | 20 | 2.4, 5, and 6 GHz | WPA3 |
+| Home-IoT | 30 | 2.4 GHz | WPA2 |
+| Guest-Work | 40 | 2.4, 5, and 6 GHz | WPA3 |
+
+![UniFi Wi-Fi networks, VLAN mappings, radio bands, and security settings](../assets/screenshots/unifi-networks.png)
+
+Named switch ports identify the main wired connections:
+
+| Port | Role | Native VLAN shown in UniFi |
+| --- | --- | --- |
+| 1 | Management connection | Management, VLAN 10 |
+| 2 | Access point | Management, VLAN 10 |
+| 3 | Trusted workstation connection | Trusted, VLAN 20 |
+| 9 | Trunk to the router | Default |
+
+![UniFi switch port names, link speeds, and native VLAN assignments](../assets/screenshots/unifi-switch-ports.png)
+
+Port names make the physical connections easy to identify during maintenance. The AP uplink, Trusted connection, and router trunk are displayed at 2.5 GbE.
 
 ## Management-plane controls
 

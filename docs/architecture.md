@@ -4,6 +4,10 @@
 
 The lab runs on a single compact Proxmox VE system with approximately 32 GiB of RAM, NVMe-backed workload storage, and a separate SATA backup disk. OPNsense is a VM; application services run in LXC containers.
 
+![Proxmox VE node summary, storage entries, and VM/LXC inventory](../assets/screenshots/proxmox-overview.png)
+
+The node summary displays CPU, RAM, disk, and load information alongside the workload tree. The host uses an Intel Core i7-10810U with twelve logical CPUs. OPNsense has its own virtual CPU and memory allocation; the application containers have individual resource settings.
+
 The host network separates three paths:
 
 | Path | Purpose |
@@ -27,7 +31,7 @@ All addresses below are illustrative.
 | 50 | Servers | `10.77.50.0/24` |
 | — | WireGuard tunnel | `10.77.60.0/24` |
 
-UniFi networks use OPNsense as their third-party gateway. Wi-Fi networks map Trusted, Home-IoT, and Guest/Work clients to their corresponding VLANs. IoT Wi-Fi uses 2.4 GHz; the other two networks support additional bands.
+UniFi networks use OPNsense as their third-party gateway. Wi-Fi networks map Trusted, Home-IoT, and Guest/Work clients to their corresponding VLANs. IoT Wi-Fi uses 2.4 GHz; Trusted and Guest/Work use 2.4, 5, and 6 GHz. The [networking page](network-and-security.md#unifi-switching-and-wireless) contains the Wi-Fi and switch-port configuration.
 
 ## Workload inventory
 
@@ -52,7 +56,7 @@ Workloads are configured to start with the host. New workloads must also be adde
 
 - OPNsense connects the internal networks and provides remote access through WireGuard.
 - AdGuard Home resolves client DNS queries, while NPMplus provides HTTPS access to internal applications.
-- Uptime Kuma monitors services and infrastructure management endpoints.
+- Uptime Kuma monitors DNS, reverse-proxy connectivity, services, and infrastructure management endpoints; see [monitoring](monitoring.md).
 - The direct-connect management path provides access to Proxmox during recovery.
 - Scheduled archives and offline/off-site copies provide workload and host rebuild information.
 

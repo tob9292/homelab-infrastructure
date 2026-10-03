@@ -6,6 +6,7 @@
 !/docs/architecture.md
 !/docs/network-and-security.md
 !/docs/dns-and-https.md
+!/docs/monitoring.md
 !/docs/backup-and-recovery.md
 !/docs/android-vpn.md
 !/docs/automation-and-documentation.md
@@ -16,3 +17,17 @@
 !/scripts/check_public_content.py
 !/tests/
 !/tests/test_public_content.py
+!/assets/
+!/assets/screenshots/
+!/assets/screenshots/proxmox-overview.png
+!/assets/screenshots/opnsense-dashboard.png
+!/assets/screenshots/opnsense-iot-rules.png
+!/assets/screenshots/unifi-networks.png
+!/assets/screenshots/unifi-devices.png
+!/assets/screenshots/unifi-switch-ports.png
+!/assets/screenshots/adguard-dashboard.png
+!/assets/screenshots/npmplus-proxy-hosts.png
+!/assets/screenshots/npmplus-certificates.png
+!/assets/screenshots/uptime-kuma.png
+!/assets/screenshots/proxmox-backup-job.png
+!/assets/screenshots/proxmox-backup-retention.png

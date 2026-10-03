@@ -16,12 +16,20 @@ Scheduled archives are stored on a dedicated SATA disk. Workloads use NVMe stora
 
 The nightly job explicitly selects all ten documented workloads. Deploying a new VM or container requires updating this list.
 
+![Enabled Proxmox backup job scheduled for 02:30 with its workload selection](../assets/screenshots/proxmox-backup-job.png)
+
+The workload backup runs at 02:30 and writes to the dedicated `backup` storage. The selection includes the OPNsense VM and all nine application containers.
+
 | Retention setting | Value |
 | --- | ---: |
 | Keep last | 3 |
 | Daily | 7 |
 | Weekly | 4 |
 | Monthly | 3 |
+
+![Proxmox backup retention settings: last three, seven daily, four weekly, and three monthly](../assets/screenshots/proxmox-backup-retention.png)
+
+The retention settings keep recent archives alongside daily, weekly, and monthly recovery points.
 
 ## Host rebuild information
 
