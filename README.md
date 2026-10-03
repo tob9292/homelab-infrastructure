@@ -48,7 +48,6 @@ OPNsense and the application containers run on the Proxmox VE host, connected th
 - [Automation and documentation workflow](docs/automation-and-documentation.md)
 - [Firewall change procedure](docs/runbooks/firewall-change.md)
 - [DNS troubleshooting procedure](docs/runbooks/dns-troubleshooting.md)
-- [Publication policy and local checks](docs/publication-policy.md)
 
 ## Engineering focus
 
@@ -61,15 +60,3 @@ The documentation covers the network layout, service configuration, administrati
 Addresses in `10.77.0.0/16`, domains under `example.com`, and generic account names are illustrative replacements. They preserve the relationships between components while keeping live endpoint details private.
 
 Configuration exports, credentials, MFA recovery material, private keys, original screenshots, and vault history remain private.
-
-## Check this repository
-
-Python 3 and [Gitleaks](https://github.com/gitleaks/gitleaks) are required for the complete local check:
-
-```sh
-python3 scripts/check_public_content.py
-python3 -B -m unittest discover -s tests -v
-gitleaks dir --redact --no-banner .
-```
-
-Before committing, run the automated checks and review the staged files as described in the [publication policy](docs/publication-policy.md).

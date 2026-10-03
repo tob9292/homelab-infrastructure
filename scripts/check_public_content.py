@@ -23,7 +23,6 @@ APPROVED_FILES = frozenset({
     "docs/backup-and-recovery.md",
     "docs/android-vpn.md",
     "docs/automation-and-documentation.md",
-    "docs/publication-policy.md",
     "docs/runbooks/firewall-change.md",
     "docs/runbooks/dns-troubleshooting.md",
     "scripts/check_public_content.py",
