@@ -50,14 +50,3 @@ Host-configuration archives remain private because they contain authentication m
 
 A ZFS boot environment provides local system rollback. Activating an older environment returns the firewall to that environment's configuration and authentication state. VM/LXC backup archives and the offline/off-site copy provide separate recovery paths.
 
-## Restore exercise
-
-Use an isolated environment for restore exercises and record:
-
-- archive readability and checksum results;
-- one LXC and one firewall-VM restore;
-- application data and configuration checks;
-- console and MFA recovery steps;
-- elapsed restore time and problems encountered.
-
-Keep restored firewall interfaces and duplicate service addresses isolated from the live network throughout the exercise.
