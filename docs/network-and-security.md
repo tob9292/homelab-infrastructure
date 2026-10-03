@@ -25,7 +25,7 @@ Key inter-network access rules:
 | Management | Firewall administration, infrastructure DNS/NTP, and NPMplus administration |
 | Trusted clients | AdGuard DNS and internal HTTPS through NPMplus |
 | Designated Trusted administrator workstation | Server-VLAN SSH, NPMplus administration, and broader access to selected management systems |
-| IoT | AdGuard DNS, firewall NTP, and a specific media-service exception |
+| IoT | AdGuard DNS and firewall NTP |
 | Guest/Work | AdGuard DNS and firewall NTP |
 | Servers | Required infrastructure services, with selected cross-VLAN automation and monitoring exceptions |
 | WireGuard clients | AdGuard DNS and internal proxy HTTPS; other private destinations are restricted |
@@ -34,21 +34,20 @@ Hermes has selected access to the administration workstation for documentation i
 
 ## IoT interface rules
 
-The IoT rules make the required internal exceptions before restricting other destinations:
+The IoT DNS, time synchronization, and network restrictions are:
 
-| Order | Action | Destination and purpose |
-| --- | --- | --- |
-| 1 | Allow TCP/UDP 53 | AdGuard Home for DNS resolution |
-| 2 | Allow UDP 123 | The firewall for time synchronization |
-| 3 | Allow TCP 8096 | Jellyfin on the designated Trusted workstation |
-| 4 | Block TCP/UDP 53 | Other DNS destinations |
-| 5 | Block | Other access to the firewall itself |
-| 6 | Block | Other destinations in the private-network alias |
-| 7 | Allow | Remaining outbound internet traffic |
+| Action | Destination and purpose |
+| --- | --- |
+| Allow TCP/UDP 53 | AdGuard Home for DNS resolution |
+| Allow UDP 123 | The firewall for time synchronization |
+| Block TCP/UDP 53 | Other DNS destinations |
+| Block | Other access to the firewall itself |
+| Block | Other destinations in the private-network alias |
+| Allow | Remaining outbound internet traffic |
 
-![OPNsense IoT interface rules in their configured order](../assets/screenshots/opnsense-iot-rules.png)
+![OPNsense IoT interface rules](../assets/screenshots/opnsense-iot-rules.png)
 
-The specific service rules precede the broader blocks. The Jellyfin exception permits access to that service without opening general access to the Trusted network. The final internet rule follows the private-network restrictions.
+The DNS and NTP allowances precede the broader blocks. The final internet rule follows the private-network restrictions.
 
 ## UniFi switching and wireless
 
@@ -66,6 +65,8 @@ The access point connects to switch port 2 with a 2.5 GbE uplink. Wireless netwo
 
 ![UniFi Wi-Fi networks, VLAN mappings, radio bands, and security settings](../assets/screenshots/unifi-networks.png)
 
+### Switch ports
+
 Named switch ports identify the main wired connections:
 
 | Port | Role | Native VLAN shown in UniFi |
@@ -73,11 +74,27 @@ Named switch ports identify the main wired connections:
 | 1 | Management connection | Management, VLAN 10 |
 | 2 | Access point | Management, VLAN 10 |
 | 3 | Trusted workstation connection | Trusted, VLAN 20 |
-| 9 | Trunk to the router | Default |
+| 9 | Trunk to the router | Default, VLAN 1 |
 
 ![UniFi switch port names, link speeds, and native VLAN assignments](../assets/screenshots/unifi-switch-ports.png)
 
 Port names make the physical connections easy to identify during maintenance. The AP uplink, Trusted connection, and router trunk are displayed at 2.5 GbE.
+
+### Router trunk — port 9
+
+The router uplink uses individual port settings with an explicit tagged-VLAN list:
+
+| Setting | Configuration |
+| --- | --- |
+| Native VLAN / Network | Default, VLAN 1 |
+| Tagged VLAN Management | Custom |
+| Tagged VLANs | 10 — Management; 20 — Trusted; 30 — IoT; 40 — Guest/Work; 50 — Servers |
+| Auto Negotiate Link Speed | Enabled |
+| Advanced mode | Auto |
+
+![UniFi router trunk settings with Default as native VLAN and five explicitly selected tagged VLANs](../assets/screenshots/unifi-router-trunk.png)
+
+Management, Trusted, IoT, Guest/Work, and Servers traffic crosses the trunk with its VLAN tags. Untagged traffic uses the native Default network. Selecting `Custom` limits tagged traffic to the five listed VLANs instead of allowing every tagged VLAN.
 
 ## Management-plane controls
 

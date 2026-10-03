@@ -43,6 +43,7 @@ APPROVED_IMAGES = {
     "assets/screenshots/unifi-networks.png": "aeb860fea8ad894fb87552d2110b800543174592431ffdd137e4ced9879bd38b",
     "assets/screenshots/unifi-devices.png": "1f8c2c8349d5f02a0af560b525dfba358b21ffd16d1664e5c27ce6781f6aede0",
     "assets/screenshots/unifi-switch-ports.png": "b56ab9f75c17bfffd7748bd72e420d6bb27727560ed2345c2a57d3b8dc21e5e1",
+    "assets/screenshots/unifi-router-trunk.png": "afb33ba9f97f2e97d5dee6500ee477eb08e5f81b9ee4427e8c0330733944cbf3",
     "assets/screenshots/adguard-dashboard.png": "7a5999680719d15902775b5724a4ac2b793f3d4065c34b64698b7ab4d754a4c4",
     "assets/screenshots/npmplus-proxy-hosts.png": "d9fee7fe3a06c446f7d15bfcefbd33eb12bc62de055cfafc4a19d11c33e55fbb",
     "assets/screenshots/npmplus-certificates.png": "114adc6f1dd9add6e35c7ea4241faa2b20c9dc8088c452b617d66a3fdf1d927b",
