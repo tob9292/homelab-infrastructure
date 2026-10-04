@@ -77,7 +77,7 @@ The [monitoring page](docs/monitoring.md) covers DNS resolution, reverse-proxy c
 - [Firewall change procedure](docs/runbooks/firewall-change.md)
 - [DNS troubleshooting procedure](docs/runbooks/dns-troubleshooting.md)
 
-## Engineering focus
+## Project goals
 
 This project demonstrates practical work with VLANs and inter-network policy, Linux virtualization, service dependencies, authentication, backup scheduling, and maintainable operational documentation.
 
