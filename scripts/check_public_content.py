@@ -85,7 +85,11 @@ def inspect_text(name, content):
         except ValueError:
             findings.append("invalid IPv4-shaped value")
             continue
-        if address not in ILLUSTRATIVE_NETWORK:
+        # A default-route CIDR is protocol syntax, not a live endpoint address.
+        is_default_route = address.is_unspecified and re.match(
+            r"/0(?![\w./-])", content[match.end():]
+        ) is not None
+        if address not in ILLUSTRATIVE_NETWORK and not is_default_route:
             findings.append("IPv4 address outside the illustrative range")
     if name.endswith(".md"):
         if "[[" in content:

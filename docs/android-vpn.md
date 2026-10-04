@@ -9,32 +9,51 @@ The home tunnel is imported by scanning the QR code generated for the OPNsense W
 
 ## Personal configuration
 
+Wi-Fi and mobile data use the same configuration: both are enabled with preferred tunnel `Default`. The default tunnel is the home WireGuard profile.
+
 | Auto-tunnel setting | Configuration |
 | --- | --- |
-| App-wide default tunnel | Home WireGuard profile; `Default tunnel` enabled in that profile's configuration |
-| Tunnel on Wi-Fi | Enabled; uses the home WireGuard profile via `Default`; tunnel disabled on trusted home Wi-Fi |
-| Tunnel on mobile data | Enabled; preferred tunnel is the home WireGuard profile |
+| Default tunnel | Home WireGuard profile |
+| Tunnel on Wi-Fi | Enabled; preferred tunnel `Default` |
+| Tunnel on mobile data | Enabled; preferred tunnel `Default` |
+| Trusted Wi-Fi | Home network identified by its trusted BSSID entries |
 | Tunnel on Ethernet | Disabled |
 | Stop on no internet | Disabled |
 | Start on boot | Enabled |
-| Trusted Wi-Fi identification | Home Trusted-network BSSID entries |
+| Auto-tunnel service | Enabled |
 
-On mobile data and Wi-Fi networks not listed as trusted, auto-tunnel activates the home WireGuard profile. On a matching trusted home Wi-Fi BSSID, it disables the tunnel so the phone uses the home network directly.
+On mobile data or Wi-Fi that does not match a trusted home BSSID, the phone automatically uses the home WireGuard tunnel. When it connects to the trusted home Wi-Fi, auto-tunnel disables the tunnel and the phone uses the local network directly.
 
-`Default` is a selection that refers to the app-wide default tunnel, not a separate tunnel profile. The home profile's **Default tunnel** switch must be enabled; selecting `Default` in the Wi-Fi automation settings alone does not assign a default profile.
+## WireGuard client profile
 
-The OPNsense peer configuration uses AdGuard Home for DNS. The firewall grants remote clients the internal access described in [network security](network-and-security.md).
+This is the phone profile's configuration layout. Addresses use the repository's illustrative `10.77.0.0/16` range, the endpoint is an example domain, and both keys are placeholders. It is a documentation example, not an importable profile.
+
+```ini
+[Interface]
+PrivateKey = <PHONE_PRIVATE_KEY>
+Address = 10.77.60.2/32
+DNS = 10.77.50.10
+
+[Peer]
+PublicKey = <OPNSENSE_PUBLIC_KEY>
+Endpoint = vpn.example.com:51820
+AllowedIPs = 0.0.0.0/0, ::/0
+```
+
+The interface address identifies the phone inside the WireGuard network, and DNS points to AdGuard Home. The peer public key identifies OPNsense; the endpoint is its WAN listener. `AllowedIPs` specifies full-tunnel destination routes, not permission to access every internal service.
+
+The firewall grants remote clients the internal access described in [network security](network-and-security.md).
 
 ## Default-tunnel setup and checks
 
 1. Open the imported home WireGuard profile's **View configuration** screen.
 2. Under **General**, enable **Default tunnel** for that profile.
-3. In **Auto-tunnel**, keep Wi-Fi enabled with preferred tunnel `Default`, and keep the home profile selected for mobile data.
+3. In **Auto-tunnel**, enable both **Tunnel on Wi-Fi** and **Tunnel on mobile data**, with preferred tunnel `Default` for both.
 4. Keep the trusted home BSSIDs configured and the auto-tunnel service running.
 
 Check the transitions from mobile data to untrusted Wi-Fi, then back to trusted home Wi-Fi. The home tunnel should activate on the first two and stop on the trusted connection. While connected through the tunnel, check a recent handshake, DNS resolution, and approved internal HTTPS access.
 
-If untrusted Wi-Fi does not start the tunnel, check the home profile's **Default tunnel** switch as well as the Wi-Fi automation setting and service state.
+If mobile data or untrusted Wi-Fi does not start the tunnel, check the home profile's **Default tunnel** switch, the corresponding automation setting, and the auto-tunnel service state.
 
 ## BSSID maintenance
 

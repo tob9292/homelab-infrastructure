@@ -40,6 +40,34 @@ class ContentTests(unittest.TestCase):
         value = "192." + "0.2.15"
         self.assertIn("IPv4 address outside the illustrative range", CHECK.inspect_text("note.md", value))
 
+    def test_default_route_is_allowed(self):
+        value = "AllowedIPs = " + "0." + "0.0.0/0, ::/0"
+        self.assertEqual([], CHECK.inspect_text("note.md", value))
+
+    def test_unspecified_address_without_default_route_is_rejected(self):
+        value = "Endpoint = " + "0." + "0.0.0:51820"
+        self.assertIn("IPv4 address outside the illustrative range", CHECK.inspect_text("note.md", value))
+
+    def test_nondefault_or_malformed_unspecified_routes_are_rejected(self):
+        for suffix in ("/32", "/1", "/00", "/0extra", "/0.0", "/0/extra", "/0-extra"):
+            with self.subTest(suffix=suffix):
+                value = "AllowedIPs = " + "0." + "0.0.0" + suffix
+                self.assertIn("IPv4 address outside the illustrative range", CHECK.inspect_text("note.md", value))
+
+    def test_wireguard_placeholders_and_illustrative_profile_are_allowed(self):
+        value = (
+            "```ini\n[Interface]\nPrivateKey = <PHONE_PRIVATE_KEY>\n"
+            "Address = 10.77.60.2/32\nDNS = 10.77.50.10\n\n"
+            "[Peer]\nPublicKey = <OPNSENSE_PUBLIC_KEY>\n"
+            "Endpoint = vpn.example.com:51820\n"
+            "AllowedIPs = " + "0." + "0.0.0/0, ::/0\n```\n"
+        )
+        self.assertEqual([], CHECK.inspect_text("note.md", value))
+
+    def test_wireguard_private_key_assignment_is_rejected(self):
+        value = "PrivateKey = " + "fixture" * 5
+        self.assertIn("credential-like assignment", CHECK.inspect_text("note.md", value))
+
     def test_invalid_address_is_rejected(self):
         value = "999." + "999.999.999"
         self.assertIn("invalid IPv4-shaped value", CHECK.inspect_text("note.md", value))
