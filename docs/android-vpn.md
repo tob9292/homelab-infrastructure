@@ -12,7 +12,7 @@ The home tunnel is imported by scanning the QR code generated for the OPNsense W
 | Auto-tunnel setting | Configuration |
 | --- | --- |
 | App-wide default tunnel | Home WireGuard profile; `Default tunnel` enabled in that profile's configuration |
-| Tunnel on Wi-Fi | Enabled; preferred tunnel is `Default`, which selects the home WireGuard profile |
+| Tunnel on Wi-Fi | Enabled; uses the home WireGuard profile via `Default`; tunnel disabled on trusted home Wi-Fi |
 | Tunnel on mobile data | Enabled; preferred tunnel is the home WireGuard profile |
 | Tunnel on Ethernet | Disabled |
 | Stop on no internet | Disabled |
