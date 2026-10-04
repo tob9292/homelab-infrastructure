@@ -6,11 +6,10 @@ Update an OPNsense rule, retain administrative access, and validate the intended
 
 ## Before the change
 
-1. Write down the intended source, destination, protocol, port, and expected denied traffic.
-2. Record the current rule order and the interface where client traffic enters the firewall.
-3. Save a private configuration export. Create a boot environment when the change warrants a system-level rollback point.
-4. Confirm access to the Proxmox VM console. Keep a working administrative session open.
-5. Identify both an allowed client and a client that should remain blocked.
+1. Write down the intended source, destination, protocol, port, and assign an alias if any is missing.
+2. Save a private configuration export. Create a boot environment when the change warrants a system-level rollback point.
+3. Confirm access to the Proxmox VM console. Keep a working administrative session open.
+4. Identify both an allowed client and a client that should remain blocked.
 
 ## Apply
 
