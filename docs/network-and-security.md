@@ -32,6 +32,12 @@ Key inter-network access rules:
 
 Hermes has selected access to the administration workstation for documentation integration and to the Proxmox API. Uptime Kuma has selected access to infrastructure management endpoints for monitoring.
 
+## WireGuard remote access
+
+The Android phone imports its home WireGuard profile from the OPNsense peer-generator QR code. That profile is set as WG Tunnel's app-wide default, so auto-tunneling uses it on mobile data and Wi-Fi networks not listed as trusted. A matching trusted home Wi-Fi BSSID disables the tunnel.
+
+The default-profile setting, automation options, and transition checks are documented in [Android VPN automation](android-vpn.md).
+
 ## IoT interface rules
 
 The IoT DNS, time synchronization, and network restrictions are:
